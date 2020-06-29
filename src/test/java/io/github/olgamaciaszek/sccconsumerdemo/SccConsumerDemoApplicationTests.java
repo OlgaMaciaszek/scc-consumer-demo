@@ -29,19 +29,6 @@ class SccConsumerDemoApplicationTests {
 	LoanApplicationService loanApplicationService;
 
 	@Test
-	void shouldSuccessfullyApplyForLoan() {
-		LoanApplication application = new LoanApplication(new Client(UUID.randomUUID()),
-				new BigDecimal("123.123"), UUID.randomUUID());
-
-		Mono<LoanApplicationResult> loanApplication = loanApplicationService
-				.loanApplication(application);
-
-		assertThat(loanApplication.block().getLoanApplicationStatus())
-				.isEqualTo(LoanApplicationStatus.APPLIED);
-		assertThat(loanApplication.block().getRejectionReason()).isNull();
-	}
-
-	@Test
 	void shouldBeRejectedDueToAbnormalLoanAmount() {
 		LoanApplication application = new LoanApplication(new Client(UUID.randomUUID()),
 				new BigDecimal("99999"), UUID.randomUUID());
@@ -52,5 +39,18 @@ class SccConsumerDemoApplicationTests {
 		assertThat(loanApplication.getLoanApplicationStatus())
 				.isEqualTo(LoanApplicationStatus.APPLICATION_REJECTED);
 		assertThat(loanApplication.getRejectionReason()).isEqualTo("Amount too high");
+	}
+
+	@Test
+	void shouldSuccessfullyApplyForLoan() {
+		LoanApplication application = new LoanApplication(new Client(UUID.randomUUID()),
+				new BigDecimal("123.123"), UUID.randomUUID());
+
+		Mono<LoanApplicationResult> loanApplication = loanApplicationService
+				.loanApplication(application);
+
+		assertThat(loanApplication.block().getLoanApplicationStatus())
+				.isEqualTo(LoanApplicationStatus.APPLIED);
+		assertThat(loanApplication.block().getRejectionReason()).isNull();
 	}
 }
