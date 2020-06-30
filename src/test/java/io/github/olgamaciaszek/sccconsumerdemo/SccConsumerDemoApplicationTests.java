@@ -8,19 +8,16 @@ import io.github.olgamaciaszek.sccconsumerdemo.model.LoanApplication;
 import io.github.olgamaciaszek.sccconsumerdemo.model.LoanApplicationResult;
 import io.github.olgamaciaszek.sccconsumerdemo.model.LoanApplicationStatus;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import reactor.core.publisher.Mono;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ExtendWith({SpringExtension.class})
 @AutoConfigureStubRunner(ids = {"io.github.olgamaciaszek:scc-producer-demo:+:stubs:8080"},
 		stubsMode = StubRunnerProperties.StubsMode.LOCAL)
 class SccConsumerDemoApplicationTests {
